@@ -1,0 +1,25 @@
+.maincontent .top-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 48px;
+    width: 100%;
+}
+.maincontent .top-section h1 {
+    margin: auto;
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 48px;
+    color: #2196f3;
+    max-width: 740px;
+}
+.maincontent .top-section p {
+    font-size: 22px;
+    line-height: 28px;
+    margin-bottom: 32px;
+    text-align: center;
+    max-width: 600px;
+}
+.maincontent .create-resume-btn {
+    display: flex;
+    margin: 20px auto
+}

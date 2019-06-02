@@ -13,4 +13,8 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Auth::routes();
+
+Route::get('/home', 'ResumeController@index')->name('home');
