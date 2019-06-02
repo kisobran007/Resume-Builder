@@ -21,6 +21,8 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
     @include('layouts.header')
-    @yield('content')
+    <div class="maincontent container">
+        @yield('content')
+    </div>
     @include('layouts.footer')
 </html>

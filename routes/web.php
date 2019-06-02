@@ -17,4 +17,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'ResumeController@index')->name('home');
+Route::get('/create-resume', 'ResumeController@createResume')->name('createResume');
