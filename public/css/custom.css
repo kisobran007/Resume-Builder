@@ -1,5 +1,34 @@
-body{
-    background-color: #d8d8d8;
+
+@media (min-width: 768px){
+    .maincontent .add-resume-form .form-group label {
+        text-align: right;
+    }
+}
+.maincontent .add-resume-form .form-group label {
+    font-weight: bold;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #333;
+}
+.maincontent .add-resume-form .form-group input,
+.maincontent .add-resume-form .form-group textarea{
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.maincontent .add-resume-form .form-section-heading{
+    font-size: 23px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 .maincontent .top-section {
     display: flex;
