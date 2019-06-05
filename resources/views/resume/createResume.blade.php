@@ -219,7 +219,7 @@
             </div>
         <div class="col-lg-12 col-lg-12 text-center">
             <button id="create_resume_btn" type="button" class="btn btn-lg btn-primary" style="margin: 15px 0;">Create Resume</button>
-        <div>
+        </div>
     </form>
     <script type="text/javascript">
         jQuery('#create_resume_btn').click(function(){
