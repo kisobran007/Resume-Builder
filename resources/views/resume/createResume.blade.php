@@ -105,39 +105,81 @@
 
             <div class="education_wrapper">
                 <h3 class="form-section-heading">Education</h3>
-                <div class="education_category">
-                    <div class="form-group row">
-                        <label for="college_name" class="col-sm-2 col-form-label">School / College Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="college_name[]" id="college_name" value="{{ old('college_name') }}">
+                @if(old('college_name'))
+                    @foreach(old('college_name') as $college_section)
+                        <div class="education_category">
+                            <div class="form-group row">
+                                <label for="college_name" class="col-sm-2 col-form-label">School / College Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="college_name[]" id="college_name" value="{{ old('college_name')[$loop->index] }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="education_city" class="col-sm-2 col-form-label">City</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="education_city[]" id="education_city" value="{{ old('education_city')[$loop->index] }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="education_start_date" class="col-sm-2 col-form-label">Start Date</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="education_start_date[]" id="education_start_date" value="{{ old('education_start_date')[$loop->index] }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="education_end_date" class="col-sm-2 col-form-label">End Date</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="education_end_date[]" id="education_end_date" value="{{ old('education_end_date[0]')[$loop->index] }}">
+                                </div>
+                                @if ($loop->index > 0)
+                                    <a href="javascript:void(0);" class="remove_button_education">
+                                        <i class="glyphicon glyphicon-plus">Remove</i>
+                                    </a>
+                                @else
+                                    <a href="javascript:void(0);" class="add_button_education">
+                                        <i class="glyphicon glyphicon-plus">Add</i>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="education_category">
+                        <div class="form-group row">
+                            <label for="college_name" class="col-sm-2 col-form-label">School / College Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="college_name[]" id="college_name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="education_city" class="col-sm-2 col-form-label">City</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="education_city[]" id="education_city">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="education_start_date" class="col-sm-2 col-form-label">Start Date</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="education_start_date[]" id="education_start_date">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="education_end_date" class="col-sm-2 col-form-label">End Date</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="education_end_date[]" id="education_end_date">
+                            </div>
+                            <a href="javascript:void(0);" class="add_button_education">
+                                <i class="glyphicon glyphicon-plus">Add</i>
+                            </a>
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="education_city" class="col-sm-2 col-form-label">City</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="education_city[]" id="education_city" value="{{ old('education_city') }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="education_start_date" class="col-sm-2 col-form-label">Start Date</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="education_start_date[]" id="education_start_date" value="{{ old('education_start_date') }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="education_end_date" class="col-sm-2 col-form-label">End Date</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="education_end_date[]" id="education_end_date" value="{{ old('education_end_date') }}">
-                        </div>
-                        <a href="javascript:void(0);" class="add_button_education" title="Add field">
-                            <i class="glyphicon glyphicon-plus">Add</i>
-                        </a>
-                    </div>
-                </div>
-
+                @endif
             </div>
 
         <h3 class="form-section-heading">Work Experience</h3>
@@ -175,8 +217,9 @@
                     <input type="text" name="work_end_date" id="work_end_date" value="{{ old('work_end_date') }}">
                 </div>
             </div>
-
-        <button id="create_resume_btn" type="button" class="btn btn-lg btn-primary">Create Resume</button>
+        <div class="col-lg-12 col-lg-12 text-center">
+            <button id="create_resume_btn" type="button" class="btn btn-lg btn-primary" style="margin: 15px 0;">Create Resume</button>
+        <div>
     </form>
     <script type="text/javascript">
         jQuery('#create_resume_btn').click(function(){
