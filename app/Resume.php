@@ -9,6 +9,12 @@ class Resume extends Model
 
     protected $table = 'resumes';
 
+    protected $casts = [
+        'key_skills' => 'array',
+        'education' => 'array',
+        'work_experience' => 'array',
+    ];
+
     protected $fillable = [
         'first_name',
         'last_name',

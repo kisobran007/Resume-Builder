@@ -45,6 +45,27 @@ class ResumeController extends Controller{
             $userId = \Auth::id();
             $params['user_id'] = $userId;
 
+            $params['education'] = [];
+            for($i= 0; $i < count($params['college_name']); $i++){
+                $params['education'][] = [
+                    'college_name' => $params['college_name'][$i],
+                    'education_city' => $params['education_city'][$i],
+                    'education_start_date' => $params['education_start_date'][$i],
+                    'education_end_date' => $params['education_end_date'][$i]
+                ];
+            }
+
+            $params['work_experience'] = [];
+            for($i= 0; $i < count($params['job_title']); $i++){
+                $params['work_experience'][] = [
+                    'job_title' => $params['job_title'][$i],
+                    'company_name' => $params['company_name'][$i],
+                    'company_city' => $params['company_city'][$i],
+                    'work_start_date' => $params['work_start_date'][$i],
+                    'work_end_date' => $params['work_end_date'][$i]
+                ];
+            }
+
             Resume::create($params);
             return redirect(route('welcome'));
         }
