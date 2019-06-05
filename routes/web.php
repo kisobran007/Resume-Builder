@@ -19,5 +19,3 @@ Auth::routes();
 
 Route::get('/create-resume', 'ResumeController@createResume')->name('createResume');
 Route::post('/create-resume', 'ResumeController@createResumePost')->name('createResumePost');
-
-Route::post('/deploy', 'DeployController@deploy');
