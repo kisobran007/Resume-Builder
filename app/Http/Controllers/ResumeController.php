@@ -23,18 +23,14 @@ class ResumeController extends Controller{
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-//    public function index()
-//    {
-//        return view('home');
-//    }
     public function createResume(){
         $user = \Auth::user();
         return view('resume.createResume')->with('user', $user);
     }
     public function createResumePost(Request $request){
 
-        $params = $request->only('first_name', 'last_name', 'email', 'address', 'postal', 'phone', 'mobile', 'personal_statement',
-            'skill_1', 'skill_2', 'skill_3', 'skill_4', 'skill_5', 'skill_6', 'college_name', 'education_city', 'education_start_date', 'education_end_date',
+        $params = $request->only('first_name', 'last_name', 'email', 'address', 'postal', 'phone', 'mobile', 'personal_statement', 'key_skills',
+            'college_name', 'education_city', 'education_start_date', 'education_end_date',
             'job_title', 'company_name', 'company_city', 'work_start_date', 'work_end_date');
 
         $validator = Validator::make($request->all(), [

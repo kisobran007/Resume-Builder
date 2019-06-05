@@ -72,36 +72,39 @@
                     <textarea cols="30" rows="6" name="personal_statement" id="personal_statement" value="{{ old('personal_statement') }}"></textarea>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="skill_1" class="col-sm-2 col-form-label">Skills</label>
-                <div class="col-sm-4 col-xs-5">
-                    <input type="text" name="skill_1" id="skill_1" value="{{ old('skill_1') }}">
+        @if(old('key_skills'))
+            @foreach(old('key_skills') as $skill)
+                <div class="skills_wrapper">
+                    <div class="form-group row">
+                        <label for="key_skills" class="col-sm-2 col-form-label">Skills</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="key_skills[]" id="key_skills" value="{{ old('key_skills')[$loop->index] }}">
+                        </div>
+                        @if ($loop->index > 0)
+                            <a href="javascript:void(0);" class="remove_button_skill">
+                                <i class="glyphicon glyphicon-plus">Remove</i>
+                            </a>
+                        @else
+                            <a href="javascript:void(0);" class="add_button_skill">
+                                <i class="glyphicon glyphicon-plus">Add More</i>
+                            </a>
+                        @endif
+                    </div>
                 </div>
-                <div class="col-sm-4 col-xs-5">
-                    <input type="text" name="skill_2" id="skill_2" value="{{ old('skill_2') }}">
+            @endforeach
+        @else
+            <div class="skills_wrapper">
+                <div class="form-group row">
+                    <label for="key_skills" class="col-sm-2 col-form-label">Skills</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="key_skills[]" id="skills">
+                    </div>
+                    <a href="javascript:void(0);" class="add_button_skill">
+                        <i class="glyphicon glyphicon-plus">Add More</i>
+                    </a>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="skill_3" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-4 col-sm-offset-2 col-xs-5">
-                    <input type="text" name="skill_3" id="skill_3" value="{{ old('skill_3') }}">
-                </div>
-                <div class="col-sm-4 col-xs-5">
-                    <input type="text" name="skill_4" id="skill_4" value="{{ old('skill_4') }}">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="skill_5" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-4 col-sm-offset-2 col-xs-5">
-                    <input type="text" name="skill_5" id="skill_5" value="{{ old('skill_5') }}">
-                </div>
-                <div class="col-sm-4 col-xs-5">
-                    <input type="text" name="skill_6" id="skill_6" value="{{ old('skill_6') }}">
-                </div>
-            </div>
+        @endif
 
             <div class="education_wrapper">
                 <h3 class="form-section-heading">Education</h3>
@@ -280,7 +283,40 @@
         jQuery(document).ready(function(){
             addRemoveEducation(10, '.add_button_education', '.education_wrapper', '.remove_button_education');
             addRemoveExperience(10, '.add_button_experience', '.experience_wrapper', '.remove_button_experience');
+            addRemoveSkill(10, '.add_button_skill', '.skills_wrapper', '.remove_button_skill');
         });
+
+        function addRemoveSkill(max, add_button_class, wrapper_class, remove_button_class){
+            var maxField = max; //Input fields increment limitation
+            var addButton = jQuery(add_button_class); //Add button selector
+            var wrapper = jQuery(wrapper_class); //Input field wrapper
+            var fieldHTML = '<div class="skills_wrapper"><div class="form-group row">\n' +
+                '                    <label for="key_skills" class="col-sm-2 col-form-label"></label>\n' +
+                '                    <div class="col-sm-8">\n' +
+                '                        <input type="text" name="key_skills[]">\n' +
+                '                    </div>\n' +
+                '                    <a href="javascript:void(0);" class="remove_button_skill">\n' +
+                '                        <i class="glyphicon glyphicon-plus">Remove</i>\n' +
+                '                    </a>\n' +
+                '                </div></div>';
+            var x = 1; //Initial field counter is 1
+
+            //Once add button is clicked
+            jQuery(addButton).click(function(){
+                //Check maximum number of input fields
+                if(x < maxField){
+                    x++; //Increment field counter
+                    jQuery(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            jQuery(wrapper).on('click', remove_button_class, function(e){
+                e.preventDefault();
+                jQuery(this).parent('div').parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        }
 
         function addRemoveEducation(max, add_button_class, wrapper_class, remove_button_class){
             var maxField = max; //Input fields increment limitation
