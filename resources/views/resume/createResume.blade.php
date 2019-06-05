@@ -132,7 +132,7 @@
                             <div class="form-group row">
                                 <label for="education_end_date" class="col-sm-2 col-form-label">End Date</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="education_end_date[]" id="education_end_date" value="{{ old('education_end_date[0]')[$loop->index] }}">
+                                    <input type="text" name="education_end_date[]" id="education_end_date" value="{{ old('education_end_date')[$loop->index] }}">
                                 </div>
                                 @if ($loop->index > 0)
                                     <a href="javascript:void(0);" class="remove_button_education">
@@ -181,42 +181,94 @@
                     </div>
                 @endif
             </div>
+        <div class="experience_wrapper">
+            <h3 class="form-section-heading">Work Experience</h3>
+            @if(old('job_title'))
+                @foreach(old('job_title') as $job_title)
+                    <div class="form-group row">
+                        <label for="job_title" class="col-sm-2 col-form-label">Job Title</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="job_title[]" id="job_title" value="{{ old('job_title')[$loop->index] }}">
+                        </div>
+                    </div>
 
-        <h3 class="form-section-heading">Work Experience</h3>
+                    <div class="form-group row">
+                        <label for="company_name" class="col-sm-2 col-form-label">Company Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="company_name[]" id="company_name" value="{{ old('company_name')[$loop->index] }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="company_city" class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="company_city" name="company_city[]" value="{{ old('company_city')[$loop->index] }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="work_start_date" class="col-sm-2 col-form-label">Start Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="work_start_date[]" id="work_start_date" value="{{ old('work_start_date')[$loop->index] }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="work_end_date" class="col-sm-2 col-form-label">End Date</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="work_end_date[]" id="work_end_date" value="{{ old('work_end_date')[$loop->index] }}">
+                        </div>
+                        @if ($loop->index > 0)
+                            <a href="javascript:void(0);" class="remove_button_experience">
+                                <i class="glyphicon glyphicon-plus">Remove</i>
+                            </a>
+                        @else
+                            <a href="javascript:void(0);" class="add_button_experience">
+                                <i class="glyphicon glyphicon-plus">Add</i>
+                            </a>
+                        @endif
+                    </div>
+                @endforeach
+            @else
             <div class="form-group row">
                 <label for="job_title" class="col-sm-2 col-form-label">Job Title</label>
                 <div class="col-sm-8">
-                    <input type="text" name="job_title" id="job_title" value="{{ old('job_title') }}">
+                    <input type="text" name="job_title[]" id="job_title">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="company_name" class="col-sm-2 col-form-label">Company Name</label>
                 <div class="col-sm-8">
-                    <input type="text" name="company_name" id="company_name" value="{{ old('company_name') }}">
+                    <input type="text" name="company_name[]" id="company_name">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="company_city" class="col-sm-2 col-form-label">City</label>
                 <div class="col-sm-8">
-                    <input type="text" id="company_city" value="{{ old('company_city') }}">
+                    <input type="text" id="company_city" name="company_city[]">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="work_start_date" class="col-sm-2 col-form-label">Start Date</label>
                 <div class="col-sm-8">
-                    <input type="text" name="work_start_date" id="work_start_date" value="{{ old('work_start_date') }}">
+                    <input type="text" name="work_start_date[]" id="work_start_date">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="work_end_date" class="col-sm-2 col-form-label">End Date</label>
                 <div class="col-sm-8">
-                    <input type="text" name="work_end_date" id="work_end_date" value="{{ old('work_end_date') }}">
+                    <input type="text" name="work_end_date[]" id="work_end_date">
                 </div>
+                <a href="javascript:void(0);" class="add_button_experience">
+                    <i class="glyphicon glyphicon-plus">Add</i>
+                </a>
             </div>
+            @endif
+        </div>
         <div class="col-lg-12 col-lg-12 text-center">
             <button id="create_resume_btn" type="button" class="btn btn-lg btn-primary" style="margin: 15px 0;">Create Resume</button>
         </div>
@@ -227,6 +279,7 @@
         });
         jQuery(document).ready(function(){
             addRemoveEducation(10, '.add_button_education', '.education_wrapper', '.remove_button_education');
+            addRemoveExperience(10, '.add_button_experience', '.experience_wrapper', '.remove_button_experience');
         });
 
         function addRemoveEducation(max, add_button_class, wrapper_class, remove_button_class){
@@ -264,6 +317,68 @@
                 '                        <i class="glyphicon glyphicon-plus">Remove</i>\n' +
                 '                    </a>\n' +
                 '                </div></div>';
+            var x = 1; //Initial field counter is 1
+
+            //Once add button is clicked
+            jQuery(addButton).click(function(){
+                //Check maximum number of input fields
+                if(x < maxField){
+                    x++; //Increment field counter
+                    jQuery(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            jQuery(wrapper).on('click', remove_button_class, function(e){
+                e.preventDefault();
+                jQuery(this).parent('div').parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        }
+        function addRemoveExperience(max, add_button_class, wrapper_class, remove_button_class){
+            var maxField = max; //Input fields increment limitation
+            var addButton = jQuery(add_button_class); //Add button selector
+            var wrapper = jQuery(wrapper_class); //Input field wrapper
+            var fieldHTML =
+                '<div class="experience_container">\n' +
+                '            <div class="form-group row">\n' +
+                '                <label for="job_title" class="col-sm-2 col-form-label">Job Title</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" name="job_title[]" id="job_title" >\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="form-group row">\n' +
+                '                <label for="company_name" class="col-sm-2 col-form-label">Company Name</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" name="company_name[]" id="company_name">\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="form-group row">\n' +
+                '                <label for="company_city" class="col-sm-2 col-form-label">City</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" name="company_city[]" id="company_city">\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="form-group row">\n' +
+                '                <label for="work_start_date" class="col-sm-2 col-form-label">Start Date</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" name="work_start_date[]" id="work_start_date">\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="form-group row">\n' +
+                '                <label for="work_end_date" class="col-sm-2 col-form-label">End Date</label>\n' +
+                '                <div class="col-sm-8">\n' +
+                '                    <input type="text" name="work_end_date[]" id="work_end_date">\n' +
+                '                </div>\n' +
+                '                    <a href="javascript:void(0);" class="' + remove_button_class.replace(".", "") + '">\n' +
+                '                        <i class="glyphicon glyphicon-plus">Remove</i>\n' +
+                '                    </a>\n' +
+                '            </div>\n' +
+                '        </div></div>';
             var x = 1; //Initial field counter is 1
 
             //Once add button is clicked
