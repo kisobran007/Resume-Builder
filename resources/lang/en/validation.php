@@ -145,6 +145,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'job_applied_for' => 'Job Title'
+    ],
 
 ];

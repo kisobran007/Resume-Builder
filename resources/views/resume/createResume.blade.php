@@ -16,6 +16,13 @@
         <h3 class="form-section-heading">Personal Details </h3>
 
             <div class="form-group row">
+                <label for="job_applied_for" class="col-sm-2 col-form-label">Job Title</label>
+                <div class="col-sm-8">
+                    <input type="text" name="job_applied_for" placeholder="Marketing Manager" id="job_applied_for" value="{{ old('job_applied_for') }}">
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                 <div class="col-sm-8">
                     <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}">

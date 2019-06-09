@@ -16,6 +16,7 @@ class Resume extends Model
     ];
 
     protected $fillable = [
+        'job_applied_for',
         'first_name',
         'last_name',
         'email',

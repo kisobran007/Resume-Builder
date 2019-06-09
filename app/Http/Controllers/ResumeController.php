@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Resume;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Session;
 
@@ -29,11 +31,12 @@ class ResumeController extends Controller{
     }
     public function createResumePost(Request $request){
 
-        $params = $request->only('first_name', 'last_name', 'email', 'address', 'postal', 'phone', 'mobile', 'personal_statement', 'key_skills',
+        $params = $request->only('job_applied_for', 'first_name', 'last_name', 'email', 'address', 'postal', 'phone', 'mobile', 'personal_statement', 'key_skills',
             'college_name', 'education_city', 'education_start_date', 'education_end_date',
             'job_title', 'company_name', 'company_city', 'work_start_date', 'work_end_date');
 
         $validator = Validator::make($request->all(), [
+            'job_applied_for' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
@@ -71,5 +74,11 @@ class ResumeController extends Controller{
         }
 
 
+    }
+
+    public function dashboard(){
+        $user = \Auth::user();
+        $resumes = DB::table('resumes')->where('user_id', $user->id)->get();
+        return view('resume.dashboard')->with('resumes', $resumes);
     }
 }
